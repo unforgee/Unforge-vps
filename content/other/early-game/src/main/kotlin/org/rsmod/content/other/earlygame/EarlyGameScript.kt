@@ -5,13 +5,16 @@ package org.rsmod.content.other.earlygame
 import jakarta.inject.Inject
 import org.rsmod.annotations.InternalApi
 import org.rsmod.api.cheat.CheatHandlerBuilder
+import org.rsmod.api.config.refs.invs
 import org.rsmod.api.config.refs.modlevels
 import org.rsmod.api.death.NpcKilledEvent
+import org.rsmod.api.invtx.invAdd
 import org.rsmod.api.player.events.interact.HeldEquipEvents
 import org.rsmod.api.player.output.mes
 import org.rsmod.api.player.protect.ProtectedAccessLauncher
 import org.rsmod.api.script.onCommand
 import org.rsmod.api.script.onEvent
+import org.rsmod.content.other.league.configs.league_objs
 import org.rsmod.game.cheat.Cheat
 import org.rsmod.game.entity.player.SessionStateEvent
 import org.rsmod.game.type.obj.Wearpos
@@ -73,7 +76,28 @@ constructor(
         }
         if (state.legacyPlayer)
             player.mes("<col=9a8b76>LEGACY ADVENTURER — Adventure Path is optional.</col>")
+        grantSmoukkiKhopesh(player)
         trackerSync.pushAll(player, progression.ensure(player))
+    }
+
+    /**
+     * One-time grant: `smoukki` receives a Thunder khopesh on login. Idempotent - skipped when one
+     * already exists in the inventory, worn equipment, or bank.
+     */
+    private fun grantSmoukkiKhopesh(player: org.rsmod.game.entity.Player) {
+        if (!player.username.equals("smoukki", ignoreCase = true)) {
+            return
+        }
+        val khopesh = league_objs.thunder_khopesh
+        val ownsKhopesh =
+            player.inv.contains(khopesh) ||
+                player.worn.contains(khopesh) ||
+                player.invMap[invs.bank]?.contains(khopesh) == true
+        if (ownsKhopesh) {
+            return
+        }
+        player.invAdd(player.inv, khopesh, count = 1, strict = false)
+        player.mes("<col=ffb84d>A Thunder khopesh has been added to your inventory.</col>")
     }
 
     private fun onNpcKilled(player: org.rsmod.game.entity.Player, npcName: String) {

@@ -503,4 +503,7 @@ private inline fun forEachNpcWithin(
     for (npc in npcList) {
         if (!npc.isSlotAssigned || npc.isInvisible || npc.hitpoints <= 0) continue
         if (npc.coords.level != center.level) continue
-        if (npc.coords.cheb
+        if (npc.coords.chebyshevDistance(center) > radius) continue
+        action(npc)
+    }
+}

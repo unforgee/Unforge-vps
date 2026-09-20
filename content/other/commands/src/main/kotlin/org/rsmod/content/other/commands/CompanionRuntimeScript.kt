@@ -6,6 +6,7 @@ import jakarta.inject.Inject
 import java.util.Base64
 import java.util.EnumMap
 import java.util.concurrent.ConcurrentHashMap
+import kotlin.math.min
 import org.rsmod.annotations.InternalApi
 import org.rsmod.api.area.checker.isWilderness
 import org.rsmod.api.combat.commons.magic.MagicSpell
@@ -26,8 +27,8 @@ import org.rsmod.api.companion.CompanionService
 import org.rsmod.api.companion.CompanionSkill
 import org.rsmod.api.companion.CompanionSkillService
 import org.rsmod.api.companion.CompanionSpellbook
-import org.rsmod.api.companion.CompanionStatCache
 import org.rsmod.api.companion.CompanionStatAugmenter
+import org.rsmod.api.companion.CompanionStatCache
 import org.rsmod.api.companion.CompanionStatSheet
 import org.rsmod.api.companion.CompanionState
 import org.rsmod.api.companion.CompanionTalentCatalog
@@ -36,11 +37,13 @@ import org.rsmod.api.companion.CompanionTargetPriority
 import org.rsmod.api.companion.CompanionTelemetryService
 import org.rsmod.api.companion.combatLevels
 import org.rsmod.api.companion.isMagicWeapon
+import org.rsmod.api.config.constants
 import org.rsmod.api.config.refs.BaseInvs
 import org.rsmod.api.config.refs.objs
 import org.rsmod.api.config.refs.params
 import org.rsmod.api.config.refs.spotanims
 import org.rsmod.api.config.refs.stats
+import org.rsmod.api.config.refs.varps
 import org.rsmod.api.death.NpcKilledEvent
 import org.rsmod.api.equipment.instance.EquipmentInstance
 import org.rsmod.api.equipment.instance.EquipmentInstanceRegistry
@@ -71,6 +74,8 @@ import org.rsmod.api.player.ui.ifSetHide
 import org.rsmod.api.player.ui.ifSetObj
 import org.rsmod.api.player.ui.ifSetScrollPos
 import org.rsmod.api.player.ui.ifSetText
+import org.rsmod.api.player.vars.enumVarp
+import org.rsmod.api.player.vars.intVarp
 import org.rsmod.api.random.CoreRandom
 import org.rsmod.api.random.GameRandom
 import org.rsmod.api.registry.npc.NpcRegistry
@@ -83,6 +88,8 @@ import org.rsmod.api.script.onIfOpen
 import org.rsmod.api.script.onOpHeld1
 import org.rsmod.api.script.onOpPlayerU
 import org.rsmod.api.script.onPlayerLogout
+import org.rsmod.api.specials.SpecialAttackManager
+import org.rsmod.api.specials.SpecialAttackType
 import org.rsmod.api.spells.MagicSpellRegistry
 import org.rsmod.api.utils.format.formatAmount
 import org.rsmod.content.other.commands.ui.CompanionEquipmentInterfaceBuilder
@@ -132,6 +139,9 @@ import org.rsmod.routefinder.collision.CollisionFlagMap
 /** Chebyshev distance beyond which a companion catch-up teleports next to its owner. */
 private const val CATCH_UP_DISTANCE = 12
 
+/** Special-energy restored per companion regen tick (in hundredths: 100 = 10%). */
+private const val COMPANION_SPEC_REGEN = 100
+
 /**
  * Bridges the owner-bound companion domain to the r239 NPC & Player Bot lifecycle.
  *
@@ -175,8 +185,12 @@ constructor(
     private val skillXp: CompanionSkillService,
     private val telemetry: CompanionTelemetryService,
     private val fragmentAugmenters: Set<CompanionStatAugmenter>,
+    private val specialAttacks: SpecialAttackManager,
     @CoreRandom private val random: GameRandom,
 ) : PluginScript() {
+
+    private var Player.specialAttackEnergy by intVarp(varps.sa_energy)
+    private var Player.specialAttackType by enumVarp<SpecialAttackType>(varps.sa_attack)
 
     /** Per-companion derived-stat sheets; recomputed only when the companion record changes. */
     private val statCache = CompanionStatCache(fragmentAugmenters)
@@ -196,6 +210,9 @@ constructor(
 
     /** companion id -> explicit NPC slot target commanded by player via "Attack (Companion)". */
     private val explicitTargets = ConcurrentHashMap<Long, Int>()
+
+    /** companion id -> last map cycle its special-energy regen ran (absent = uninitialized). */
+    private val specRegenClocks = ConcurrentHashMap<Long, Int>()
 
     /** owner id -> chosen companion id for single-target UI menus (dashboard, talents, gear). */
     private val selectedCompanionId = ConcurrentHashMap<Long, Long>()
@@ -633,6 +650,7 @@ constructor(
                 engagedModes.remove(c.id)
                 combatXpBaselines.remove(c.id)
                 explicitTargets.remove(c.id)
+                specRegenClocks.remove(c.id)
             }
         }
 
@@ -653,6 +671,10 @@ constructor(
 
             // Always mirror accumulated combat stat XP into companion experience immediately
             awardCombatExperience(player, active, bot)
+
+            // Companions carry their own special-attack energy (full on spawn, regen per
+            // cycle) so their weapon specs can fire through the standard combat pipeline.
+            tickSpecialEnergy(active.id, bot)
 
             // Tactical Emergency Healing & Potion Feeding check
             companionEmergencyHeal.checkEmergencyHeal(player, active, bot)
@@ -993,9 +1015,43 @@ constructor(
         } else {
             // The standard attack op: melee weapons trigger within touch range, ranged weapons
             // within their `attackrange` param - the same positioning rules as real players.
+            armWeaponSpecial(bot)
             npcInteractions.interact(bot, target, target.attackOp())
         }
         engagedModes[companion.id] = mode
+    }
+
+    /**
+     * Companions keep their own special-attack energy on the virtual player's `sa_energy` varp:
+     * full when first summoned, then +10% every `spec_regen_interval` cycles - the same cadence
+     * real players get from `timers.spec_regen`.
+     */
+    private fun tickSpecialEnergy(companionId: Long, bot: Player) {
+        val lastRegen = specRegenClocks[companionId]
+        if (lastRegen == null) {
+            bot.specialAttackEnergy = constants.sa_max_energy
+            specRegenClocks[companionId] = mapClock.cycle
+            return
+        }
+        if (mapClock.cycle - lastRegen < constants.spec_regen_interval) {
+            return
+        }
+        specRegenClocks[companionId] = mapClock.cycle
+        bot.specialAttackEnergy =
+            min(constants.sa_max_energy, bot.specialAttackEnergy + COMPANION_SPEC_REGEN)
+    }
+
+    /**
+     * Arms the companion bot's weapon special when the equipped weapon has a spec-energy entry and
+     * the bot can afford it. `PvNCombat` consumes `sa_attack` on the next weapon hit, so a weapon
+     * without a spec - or insufficient energy - simply falls through to a normal attack.
+     */
+    private fun armWeaponSpecial(bot: Player) {
+        val weaponType = objTypes.getOrNull(bot.righthand) ?: return
+        val requirement = specialAttacks.getSpecialEnergyRequirement(weaponType) ?: return
+        if (bot.specialAttackEnergy >= requirement) {
+            bot.specialAttackType = SpecialAttackType.Weapon
+        }
     }
 
     /**

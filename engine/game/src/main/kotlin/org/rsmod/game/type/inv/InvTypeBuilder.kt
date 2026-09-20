@@ -25,6 +25,10 @@ public class InvTypeBuilder(public var internal: String? = null) {
         val stack = stack ?: DEFAULT_STACK
         val size = size ?: DEFAULT_SIZE
         val flags = flags
+        val stock = stock
+        check(stock == null || stock.size <= size) {
+            "`stock` exceeds inventory size. (internal=$internal, stock=${stock?.size}, size=$size)"
+        }
         return if (flags == null) {
             val restock = restock == true
             val allStock = allStock == true

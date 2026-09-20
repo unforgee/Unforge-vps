@@ -24,5 +24,6 @@ dependencies {
     implementation(projects.api.registry)
     implementation(projects.api.shops)
     implementation(projects.api.random)
+    implementation(projects.content.other.leagueItems)
     implementation(kotlin("test"))
 }

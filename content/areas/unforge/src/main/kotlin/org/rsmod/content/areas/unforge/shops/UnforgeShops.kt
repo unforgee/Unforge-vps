@@ -669,7 +669,7 @@ object UnforgeShopInvs : InvBuilder() {
             stack = InvStackType.Always
             // PvM shop also contains the former Blood Money stock. The client shop grid supports
             // scrolling when the inventory is larger than the visible rows.
-            size = 120
+            autoSize = true
             restock = true
             allStock = true
             // Nightmare reward additions. Existing PvM stock below remains untouched.

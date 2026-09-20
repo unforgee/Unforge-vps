@@ -34,6 +34,7 @@ dependencies {
     implementation(projects.api.realmConfig)
     implementation(projects.api.route)
     implementation(projects.api.scriptAdvanced)
+    implementation(projects.api.specials)
     implementation(projects.api.type.typeBuilders)
     implementation(projects.api.type.typeSymbols)
     implementation(projects.api.utils.utilsSystem)
