@@ -1,0 +1,12 @@
+[
+  {
+    "ids": [
+      3029
+    ],
+    "hitpoints": 150,
+    "max_damage": 12,
+    "attack_style": "MELEE",
+    "attack_ticks": 4,
+    "respawn_ticks": 50
+  }
+]

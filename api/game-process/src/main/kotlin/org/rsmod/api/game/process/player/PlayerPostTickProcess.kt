@@ -1,0 +1,170 @@
+package org.rsmod.api.game.process.player
+
+import com.github.michaelbull.logging.InlineLogger
+import jakarta.inject.Inject
+import org.rsmod.api.game.process.GameLifecycle
+import org.rsmod.api.player.forceDisconnect
+import org.rsmod.api.player.output.MiscOutput
+import org.rsmod.api.utils.logging.GameExceptionHandler
+import org.rsmod.events.EventBus
+import org.rsmod.game.entity.Player
+import org.rsmod.game.entity.util.EntityFaceAngle
+import org.rsmod.game.entity.util.ShuffledPlayerList
+import org.rsmod.game.seq.EntitySeq
+
+public class PlayerPostTickProcess
+@Inject
+constructor(
+    private val eventBus: EventBus,
+    private val playerList: ShuffledPlayerList,
+    private val zoneUpdates: PlayerZoneUpdateProcessor,
+    private val buildAreas: PlayerBuildAreaProcessor,
+    private val regions: PlayerRegionProcessor,
+    private val facing: PlayerFaceSquareProcessor,
+    private val mapUpdates: PlayerMapUpdateProcessor,
+    private val runUpdates: PlayerRunUpdateProcessor,
+    private val invUpdates: PlayerInvUpdateProcessor,
+    private val statUpdates: PlayerStatUpdateProcessor,
+    private val exceptionHandler: GameExceptionHandler,
+) {
+    private val logger = InlineLogger()
+
+    public fun process() {
+        computeSharedBuffers()
+        updateProtocolInfo()
+        processPostTick()
+        finalizePostTick()
+    }
+
+    private fun computeSharedBuffers() {
+        zoneUpdates.computeEnclosedBuffers()
+    }
+
+    private fun updateProtocolInfo() {
+        for (player in playerList) {
+            player.tryOrDisconnect {
+                facing.process(this)
+                regions.process(this)
+                buildAreas.process(this)
+                clientCycle.update(this)
+            }
+        }
+        eventBus.publish(GameLifecycle.UpdateInfo)
+    }
+
+    private fun processPostTick() {
+        for (player in playerList) {
+            player.tryOrDisconnect {
+                processMapChanges()
+                processClientCycle()
+                processZoneUpdates()
+                processInvUpdates()
+                processStatUpdates()
+                processRunUpdates()
+                processClientState()
+                cleanUpPendingUpdates()
+            }
+        }
+    }
+
+    private fun Player.processMapChanges() {
+        mapUpdates.process(this)
+    }
+
+    private fun Player.processClientCycle() {
+        if (loggingOut) {
+            clientCycle.release()
+            return
+        }
+        clientCycle.flush(this)
+    }
+
+    private fun Player.processZoneUpdates() {
+        zoneUpdates.process(this)
+    }
+
+    private fun Player.processInvUpdates() {
+        invUpdates.process(this)
+    }
+
+    private fun Player.processStatUpdates() {
+        statUpdates.process(this)
+    }
+
+    private fun Player.processRunUpdates() {
+        runUpdates.process(this)
+    }
+
+    private fun Player.processClientState() {
+        if (closeClient) {
+            closeClient = false
+            closeClient()
+            return
+        }
+        flushClient()
+    }
+
+    private fun Player.closeClient() {
+        MiscOutput.logout(this)
+        client.flushHighPriority()
+        client.close()
+    }
+
+    private fun Player.flushClient() {
+        MiscOutput.serverTickEnd(this)
+        client.flush()
+    }
+
+    private fun Player.cleanUpPendingUpdates() {
+        pendingSay = null
+        pendingStepCount = 0
+        pendingTeleport = false
+        pendingTelejump = false
+        pendingRunWeight = false
+        pendingExactMove = null
+        pendingFaceAngle = EntityFaceAngle.NULL
+        pendingSequence = EntitySeq.NULL
+        pendingSpotanims.clear()
+        activeHeadbars.clear()
+        activeHitmarks.clear()
+        appearance.clearRebuildFlag()
+    }
+
+    private fun finalizePostTick() {
+        zoneUpdates.clearEnclosedBuffers()
+        zoneUpdates.clearPendingZoneUpdates()
+        invUpdates.cleanUp()
+    }
+
+    private inline fun Player.tryOrDisconnect(block: Player.() -> Unit) =
+        try {
+            block(this)
+        } catch (e: Exception) {
+            logDisconnectDiagnostic("post-tick exception", e)
+            forceDisconnect()
+            exceptionHandler.handle(e) { "Error processing post-tick for player: $this." }
+        } catch (e: NotImplementedError) {
+            logDisconnectDiagnostic("post-tick not implemented", e)
+            forceDisconnect()
+            exceptionHandler.handle(e) { "Error processing post-tick for player: $this." }
+        }
+
+    private fun Player.logDisconnectDiagnostic(reason: String, exception: Throwable) {
+        logger.error(exception) {
+            "DISCONNECT DIAGNOSTIC\n" +
+                "player=$this\n" +
+                "reason=$reason\n" +
+                "channelActive=unknown\n" +
+                "lastInboundPacket=unknown\n" +
+                "lastOutboundPacket=unknown\n" +
+                "lastCombatAction=interaction=${interaction}\n" +
+                "attacker=unknown\n" +
+                "target=faceEntity=${faceEntity.entitySlot}\n" +
+                "animation=${pendingSequence.id}\n" +
+                "gfx=${pendingSpotanims.size}\n" +
+                "projectile=unknown\n" +
+                "ability=unknown\n" +
+                "exception=${exception::class.qualifiedName}: ${exception.message}"
+        }
+    }
+}

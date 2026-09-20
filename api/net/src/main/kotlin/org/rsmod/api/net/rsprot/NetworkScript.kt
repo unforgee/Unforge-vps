@@ -1,0 +1,93 @@
+package org.rsmod.api.net.rsprot
+
+import jakarta.inject.Inject
+import net.rsprot.protocol.api.NetworkService
+import net.rsprot.protocol.common.RSProtConstants
+import net.rsprot.protocol.common.client.OldSchoolClientType
+import org.rsmod.api.core.Build
+import org.rsmod.api.game.process.GameLifecycle
+import org.rsmod.api.net.rsprot.player.SessionStart
+import org.rsmod.api.registry.region.RegionRegistry
+import org.rsmod.api.script.onEvent
+import org.rsmod.game.MapClock
+import org.rsmod.game.client.Client
+import org.rsmod.game.entity.Npc
+import org.rsmod.game.entity.Player
+import org.rsmod.game.entity.npc.NpcStateEvents
+import org.rsmod.game.entity.player.SessionStateEvent
+import org.rsmod.game.type.obj.ObjTypeList
+import org.rsmod.plugin.scripts.PluginScript
+import org.rsmod.plugin.scripts.ScriptContext
+
+@OptIn(ExperimentalUnsignedTypes::class, ExperimentalStdlibApi::class)
+class NetworkScript
+@Inject
+constructor(
+    private val mapClock: MapClock,
+    private val service: NetworkService<Player>,
+    private val objTypes: ObjTypeList,
+    private val regionReg: RegionRegistry,
+) : PluginScript() {
+    override fun ScriptContext.startup() {
+        check(RSProtConstants.REVISION == Build.MAJOR) {
+            "RSProt and RSMod have mismatching revision builds! " +
+                "(rsmod=${Build.MAJOR}, rsprot=${RSProtConstants.REVISION})"
+        }
+        onEvent<GameLifecycle.Startup> { initService() }
+        onEvent<GameLifecycle.UpdateInfo> { updateService() }
+        onEvent<SessionStart> { startSession() }
+        onEvent<SessionStateEvent.Delete> { closeSession() }
+        onEvent<NpcStateEvents.Create> { createNpcAvatar(npc) }
+        onEvent<NpcStateEvents.Delete> { deleteNpcAvatar(npc) }
+    }
+
+    private fun initService() {
+        service.setCommunicationThread(Thread.currentThread())
+    }
+
+    private fun updateService() {
+        service.infoProtocols.update()
+        // After protocols are built, queue each player's info packets onto their session.
+        // RspClient.queueInfoPackets is invoked via clientCycle flush path below.
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    private fun SessionStart.startSession() {
+        val slot = player.slotId
+        val infos = service.infoProtocols.alloc(slot, OldSchoolClientType.DESKTOP)
+
+        val client = RspClient(session, infos) as Client<Any, Any>
+        val cycle = RspCycle(session, infos, objTypes, regionReg)
+
+        player.client = client
+        player.clientCycle = cycle
+
+        cycle.init(player)
+    }
+
+    private fun SessionStateEvent.Delete.closeSession() {
+        val client = player.client as? RspClient ?: return
+        client.unregister(service, player)
+    }
+
+    private fun createNpcAvatar(npc: Npc) {
+        val rspAvatar =
+            service.npcAvatarFactory.alloc(
+                index = npc.slotId,
+                id = npc.id,
+                level = npc.level,
+                x = npc.x,
+                z = npc.z,
+                spawnCycle = mapClock.cycle,
+                direction = npc.respawnDir.id,
+            )
+        npc.infoProtocol = RspNpcInfo(rspAvatar)
+    }
+
+    private fun deleteNpcAvatar(npc: Npc) {
+        val infoProtocol = npc.avatar.infoProtocol
+        if (infoProtocol is RspNpcInfo) {
+            service.npcAvatarFactory.release(infoProtocol.rspAvatar)
+        }
+    }
+}

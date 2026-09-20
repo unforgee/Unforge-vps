@@ -1,0 +1,48 @@
+package org.rsmod.api.cache.map.obj
+
+import io.netty.buffer.ByteBuf
+import io.netty.buffer.PooledByteBufAllocator
+import kotlin.collections.component1
+import kotlin.collections.component2
+import kotlin.collections.iterator
+import org.openrs2.cache.Cache
+import org.rsmod.api.cache.Js5Archives
+import org.rsmod.api.cache.map.MapGroupFiles
+import org.rsmod.api.cache.util.EncoderContext
+import org.rsmod.api.cache.util.readOrNull
+import org.rsmod.map.square.MapSquareKey
+
+public object MapObjListEncoder {
+    public fun encodeAll(
+        cache: Cache,
+        spawns: Map<MapSquareKey, MapObjListDefinition>,
+        ctx: EncoderContext,
+    ) {
+        // Map obj spawns are a server-only file within the mapsquare group.
+        if (ctx.clientOnly) {
+            return
+        }
+        val buffer = PooledByteBufAllocator.DEFAULT.buffer()
+        val archive = Js5Archives.MAPS
+        for ((key, definition) in spawns) {
+            val oldBuf = cache.readOrNull(archive, key.id, MapGroupFiles.OBJS)
+            val newBuf = buffer.clear().apply { encode(definition, this) }
+            if (newBuf != oldBuf) {
+                cache.write(archive, key.id, MapGroupFiles.OBJS, newBuf)
+            }
+            oldBuf?.release()
+        }
+        buffer.release()
+    }
+
+    public fun encode(definition: MapObjListDefinition, data: ByteBuf): Unit =
+        with(definition) {
+            check(packedSpawns.size <= 65535) {
+                "Map obj spawn size exceeds limit: ${packedSpawns.size} / 65535"
+            }
+            data.writeShort(packedSpawns.size)
+            for (packed in packedSpawns.longIterator()) {
+                data.writeLong(packed)
+            }
+        }
+}

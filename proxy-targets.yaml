@@ -1,0 +1,20 @@
+# Project Gielinor — RSProx private target (localhost)
+#
+# Import in RSProx: target selector → + → From URL… → paste the raw link:
+#   https://raw.githubusercontent.com/Slashx124/UnForge/main/proxy-targets.yaml
+#
+# Or copy this file to: %USERPROFILE%\.rsprox\proxy-targets.yaml  (Windows)
+#                       ~/.rsprox/proxy-targets.yaml               (Linux/macOS)
+#
+# Prerequisites:
+#   1. GameServer running locally on port 43594
+#   2. Use the committed local-dev RSA key at `.data/game.key`
+#      (fresh `gradlew install` generates a new key — if you regenerate,
+#       replace `modulus` below with the value printed / written to `.data/client.key`)
+
+config:
+  - name: Project Gielinor
+    revision: 239.1
+    jav_config_url: https://client.blurite.io/jav_local_239.ws
+    game_server_port: 43594
+    modulus: bc91664575a944cadaa833a678dffd134088f2545d664e6085405f2256f373588c5ec8d91bd9a66d8c6a8d5780eca9dd0713d4d3152ea7edb4d4936fbd11c22df51fb823b757f0b3f8baa1480fa8dd2685031e0d58b41d7a1bc18cfb8bb93b36d3450f41eae2cd38a5d54e275c4eadf203a790134dfd785802f7990a9868f605

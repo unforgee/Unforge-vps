@@ -1,0 +1,83 @@
+[[spawn]]
+npc = 'tut2_basics_tutor'
+coords = '0_26_95_23_35'
+
+[[spawn]]
+npc = 'tut2_survival_tutor'
+coords = '0_26_95_31_23'
+
+[[spawn]]
+npc = '0_26_95_tut2_fishing'
+coords = '0_26_95_27_18'
+
+[[spawn]]
+npc = '0_26_95_tut2_fishing'
+coords = '0_26_95_29_20'
+
+[[spawn]]
+npc = '0_26_95_tut2_fishing'
+coords = '0_26_95_31_20'
+
+[[spawn]]
+npc = 'tut2_nav_tutor'
+coords = '0_26_95_4_11'
+
+[[spawn]]
+npc = 'tut2_quest_tutor'
+coords = '0_26_95_13_50'
+
+[[spawn]]
+npc = 'tut2_mining_tutor'
+coords = '0_26_195_8_32'
+
+[[spawn]]
+npc = 'tut2_combat_tutor'
+coords = '0_26_195_41_47'
+
+[[spawn]]
+npc = 'tut2_giantrat'
+coords = '0_26_195_34_47'
+
+[[spawn]]
+npc = 'tut2_giantrat'
+coords = '0_26_195_37_47'
+
+[[spawn]]
+npc = 'tut2_giantrat'
+coords = '0_26_195_35_44'
+
+[[spawn]]
+npc = 'tut2_giantrat'
+coords = '0_26_195_37_44'
+
+[[spawn]]
+npc = 'tut2_giantrat'
+coords = '0_26_195_34_43'
+
+[[spawn]]
+npc = 'tut2_bank_tutor'
+coords = '0_26_95_56_53'
+
+[[spawn]]
+npc = 'tut2_prayer_tutor'
+coords = '0_26_95_53_34'
+
+[[spawn]]
+npc = 'tut2_ironman_tutor'
+coords = '0_26_95_57_11'
+
+[[spawn]]
+npc = 'tut2_magic_tutor'
+coords = '0_27_95_5_16'
+
+[[spawn]]
+npc = 'tut2_chicken'
+coords = '0_27_95_2_21'
+
+[[spawn]]
+npc = 'tut2_chicken'
+coords = '0_27_95_4_21'
+
+[[spawn]]
+npc = 'tut2_chicken'
+coords = '0_27_95_3_23'

@@ -1,0 +1,23 @@
+title=UnForge Modern 239
+codebase=http://94.237.118.174:8088/
+cachedir=unforge239
+storebase=0
+initial_jar=gamepack_2506588_public.jar
+initial_class=client.class
+viewerversion=124
+param=3=true
+param=4=1
+param=7=0
+param=13=94.237.118.174
+param=9=
+param=18=
+param=25=239
+param=5=1
+param=6=0
+param=17=http://94.237.118.174:8088/world_list_public.ws
+param=8=true
+param=14=0
+param=16=false
+param=15=0
+param=12=1
+param=10=5

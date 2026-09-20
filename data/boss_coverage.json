@@ -1,0 +1,28 @@
+{
+  "schema": "unforge-boss-coverage/v1",
+  "auditedAt": "2026-09-19",
+  "statusDefinitions": ["COMPLETE", "PARTIAL", "NPC_ONLY", "BROKEN", "MISSING", "BLOCKED_CACHE"],
+  "testStates": ["PASS", "FAIL", "NOT_TESTED", "NEEDS_VISUAL_VERIFICATION", "BLOCKED"],
+  "sourceOfTruth": "docs/BOSS_COVERAGE.md",
+  "runtimeComponents": [
+    "content/areas/unforge/src/main/kotlin/org/rsmod/content/areas/unforge/wilderness/SoloBossArena.kt",
+    "content/areas/unforge/src/main/kotlin/org/rsmod/content/areas/unforge/wilderness/WildernessBosses.kt",
+    "content/areas/unforge/src/main/kotlin/org/rsmod/content/areas/unforge/raids/RaidService.kt",
+    "content/areas/unforge/src/main/kotlin/org/rsmod/content/areas/unforge/drops/UnforgeDrops.kt"
+  ],
+  "totals": {
+    "discoveredOrAudited": 43,
+    "complete": 0,
+    "partial": 19,
+    "npcOnly": 22,
+    "broken": 0,
+    "missing": 0,
+    "blockedCache": 1,
+    "tested": 0
+  },
+  "notes": [
+    "Counts are a conservative baseline and include encounter groups where the project exposes a proxy or raid framework.",
+    "NPC/cache presence never implies a playable boss.",
+    "The Markdown matrix contains the per-boss evidence and must be updated with every implementation batch."
+  ]
+}

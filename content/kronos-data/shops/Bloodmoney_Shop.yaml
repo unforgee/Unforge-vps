@@ -1,0 +1,58 @@
+---
+identifier: "31ac0497-8629-4c75-b7b8-481b2ba4288d"
+title: "Bloodmoney"
+currency: "BLOOD_MONEY"
+accessibleByIronMan: true
+canSellToStore: false
+restockRules:
+  restockTicks: 50
+  restockPerTick: 1
+defaultStock:
+- id: 590
+  amount: 100
+  price: 10
+  placeholderId: 0
+- id: 1755
+  amount: 100
+  price: 15
+  placeholderId: 0
+- id: 2347
+  amount: 100
+  price: 20
+  placeholderId: 0
+- id: 952
+  amount: 100
+  price: 25
+  placeholderId: 0
+- id: 1265
+  amount: 50
+  price: 50
+  placeholderId: 0
+- id: 1067
+  amount: 1
+  price: 280
+  placeholderId: 0
+- id: 1081
+  amount: 1
+  price: 280
+  placeholderId: 0
+- id: 1115
+  amount: 1
+  price: 560
+  placeholderId: 0
+- id: 1154
+  amount: 1
+  price: 154
+  placeholderId: 0
+- id: 1191
+  amount: 1
+  price: 238
+  placeholderId: 0
+- id: 1267
+  amount: 1
+  price: 140
+  placeholderId: 0
+- id: 1323
+  amount: 1
+  price: 112
+  placeholderId: 0

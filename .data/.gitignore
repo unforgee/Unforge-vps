@@ -1,0 +1,6 @@
+/*
+symbols/.local/
+
+!symbols/
+!.gitignore
+# Local RSA keys are intentionally never published.

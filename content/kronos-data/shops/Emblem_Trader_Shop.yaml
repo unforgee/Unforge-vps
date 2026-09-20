@@ -1,0 +1,10 @@
+---
+identifier: "2338f985-7df7-453d-9b63-ccd4d32ebbdf"
+title: "Emblem Trader's Store"
+currency: "BLOOD_MONEY"
+accessibleByIronMan: true
+canSellToStore: false
+restockRules:
+  restockTicks: 50
+  restockPerTick: 1
+defaultStock:

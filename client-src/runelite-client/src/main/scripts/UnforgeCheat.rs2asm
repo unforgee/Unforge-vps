@@ -1,0 +1,19 @@
+; Copyright (c) 2026 Unforge
+; All rights reserved.
+;
+; Sends a server cheat command (the text a player would type after "::")
+; as a ClientCheat packet. Needed because script 5517 (ChatSend) only
+; routes text to public/clan chat - the "::" detection and docheat call
+; live in the chatbox key handler (script 73), which cannot be invoked
+; outside of an actual key press.
+;
+; Arg 0 (string): command text without the leading "::", e.g.
+;   "npcaddat 6000 goblin 0 50 50 60 28"
+;
+.id                 10005
+.int_arg_count      0
+.obj_arg_count      1
+
+   oload                  0
+   docheat
+   return

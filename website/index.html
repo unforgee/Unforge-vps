@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#07090b" />
+    <meta name="description" content="Unforge — an MMO RPG world forged around companions, evolving item instances, PvM progression, and meaningful systems." />
+    <title>Unforge | MMO RPG Systems Forged in Fire</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-noise" aria-hidden="true"></div>
+    <div class="cursor-glow" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="Unforge home">
+        <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span class="brand-name">UNFORGE</span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-nav">
+        <span></span><span></span><span></span><span class="sr-only">Toggle navigation</span>
+      </button>
+      <nav id="site-nav" class="site-nav" aria-label="Main navigation">
+        <a href="#companions">Companions</a>
+        <a href="#instances">Item instances</a>
+        <a href="#systems">Systems</a>
+        <a href="#roadmap">Forge log</a>
+        <a class="nav-cta nav-download" href="downloads/unforge-launcher.jar" download>Download launcher <span>↓</span></a>
+        <a class="nav-cta" href="#enter">Enter the forge <span>↗</span></a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero hero-v2" aria-labelledby="hero-title">
+        <div class="hero-backdrop" aria-hidden="true"></div>
+        <div class="hero-embers" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+        <div class="hero-layout">
+          <div class="hero-copy reveal">
+            <p class="eyebrow"><span class="signal-dot"></span> MMO RPG systems / revision 239</p>
+            <h1 id="hero-title">THE WORLD<br /><em>KEEPS SCORE.</em></h1>
+            <p class="hero-lede">Build a legend with a companion that learns, and carry gear that remembers every battle.</p>
+            <div class="hero-actions">
+              <a class="button button-primary" href="downloads/unforge-launcher.jar" download>Download launcher <span>↓</span></a>
+              <a class="button button-primary" href="#companions">Explore the systems <span>↗</span></a>
+              <a class="button button-ghost" href="#roadmap">Read the forge log <span>↓</span></a>
+            </div>
+            <div class="hero-stats" aria-label="Unforge system highlights">
+              <div><strong>2.0</strong><span>Evolution layers</span></div>
+              <div><strong>5</strong><span>Companion roles</span></div>
+              <div><strong>239</strong><span>World revision</span></div>
+            </div>
+          </div>
+
+          <div class="hero-showcase reveal reveal-delay">
+            <div class="showcase-label"><span>IN-GAME SYSTEMS</span><span id="slide-count">01 / 05</span></div>
+            <div class="hero-carousel" aria-label="Unforge in-game feature screenshots">
+              <figure class="hero-slide is-active"><img src="feature-difficulty.png" alt="Adventure Path difficulty selection with XP and loot bonuses" /><figcaption><strong>Adventure Path</strong><span>Choose the rules of your journey.</span></figcaption></figure>
+              <figure class="hero-slide"><img src="feature-relic.png" alt="Starter Relic selection for melee, ranged, and magic paths" /><figcaption><strong>Starter Relics</strong><span>Shape your first build from the opening choice.</span></figcaption></figure>
+              <figure class="hero-slide"><img src="feature-companion.png" alt="Companion hub showing combat attributes, talents, equipment, and behaviour" /><figcaption><strong>Companion Hub</strong><span>Inspect, equip, command, and evolve your ally.</span></figcaption></figure>
+              <figure class="hero-slide"><img src="feature-inspect.png" alt="Companion inspect panel showing identity, evolution, skills, stats, abilities, and talents" /><figcaption><strong>Canonical Inspect</strong><span>Read the live state behind every number.</span></figcaption></figure>
+              <figure class="hero-slide"><img src="feature-talents.png" alt="Companion talents panel showing support abilities and locked tiers" /><figcaption><strong>Talent Trees</strong><span>Turn combat experience into a role you own.</span></figcaption></figure>
+            </div>
+            <div class="carousel-controls">
+              <button class="carousel-arrow" type="button" data-carousel="prev" aria-label="Previous screenshot">←</button>
+              <div class="carousel-dots" role="tablist" aria-label="Choose a screenshot">
+                <button class="carousel-dot is-active" type="button" role="tab" aria-selected="true" aria-label="Show Adventure Path"></button>
+                <button class="carousel-dot" type="button" role="tab" aria-selected="false" aria-label="Show Starter Relics"></button>
+                <button class="carousel-dot" type="button" role="tab" aria-selected="false" aria-label="Show Companion Hub"></button>
+                <button class="carousel-dot" type="button" role="tab" aria-selected="false" aria-label="Show Canonical Inspect"></button>
+                <button class="carousel-dot" type="button" role="tab" aria-selected="false" aria-label="Show Talent Trees"></button>
+              </div>
+              <button class="carousel-arrow" type="button" data-carousel="next" aria-label="Next screenshot">→</button>
+            </div>
+          </div>
+        </div>
+        <div class="hero-bottomline" aria-hidden="true"><span>00</span><span class="line"></span><span>THE FORGE IS AWAKE</span></div>
+      </section>
+
+      <section class="system-intro section-shell" aria-labelledby="systems-intro-title">
+        <div class="section-intro reveal"><p class="eyebrow">01 / CORE IDENTITY</p><h2 id="systems-intro-title">Two systems.<br /><em>One persistent world.</em></h2></div>
+        <p class="section-lede reveal reveal-delay">Unforge is built around progression that stays meaningful after the fight ends. Your ally grows. Your equipment carries history. Your choices become part of the account.</p>
+      </section>
+
+      <section id="companions" class="feature-section feature-companions section-shell" aria-labelledby="companions-title">
+        <div class="feature-heading reveal">
+          <div class="feature-number">02</div>
+          <p class="eyebrow">COMPANION SYSTEM / LIVE</p>
+          <h2 id="companions-title">Your companion<br /><em>is not a pet.</em></h2>
+          <p class="feature-lede">It is a persistent combat partner with its own stats, spellbook, behaviour, abilities, progression, equipment, and memory.</p>
+        </div>
+        <div class="feature-panel reveal reveal-delay">
+          <div class="panel-topline"><span>COMPANION EVOLUTION 2.0</span><span class="status-live">● LIVE SYSTEM</span></div>
+          <div class="companion-grid">
+            <article class="micro-card micro-card-hot"><span class="micro-icon">⚔</span><h3>Five combat identities</h3><p>MELEE, RANGED, MAGIC, SUPPORT, and TANK tracks turn a companion into a role you can actually build around.</p></article>
+            <article class="micro-card"><span class="micro-icon">◈</span><h3>Positioning that matters</h3><p>Touch-range melee, weapon-range attacks, spell range, a follow leash, and server-side validation keep movement honest.</p></article>
+            <article class="micro-card"><span class="micro-icon">✦</span><h3>Spellbooks & autocast</h3><p>Each companion owns a persisted STANDARD or ANCIENTS spellbook with validated autocast selection and combat style gates.</p></article>
+            <article class="micro-card"><span class="micro-icon">⌁</span><h3>Behaviour you can shape</h3><p>Target priority, follow distance, auto-taunt, defensive wards, healing, buffs, and catch-up movement are part of the companion record.</p></article>
+          </div>
+          <div class="feature-footer"><span>XP / STATS / AFFIXES / SET BONUSES / TALENTS / ABILITIES / EVOLUTION</span><a class="text-link" href="#systems">See the full stack <span>→</span></a></div>
+        </div>
+      </section>
+
+      <section id="instances" class="feature-section feature-instances section-shell" aria-labelledby="instances-title">
+        <div class="feature-panel reveal">
+          <div class="instance-visual" aria-hidden="true"><div class="instance-orbit orbit-one"></div><div class="instance-orbit orbit-two"></div><div class="instance-orbit orbit-three"></div><div class="instance-core"><span>ITEM</span><strong>INSTANCE</strong><small>UUID / REVISION / FINGERPRINT</small></div><i class="spark spark-one"></i><i class="spark spark-two"></i><i class="spark spark-three"></i></div>
+          <div class="instance-data"><span>SERVER-AUTHORITATIVE STATE</span><strong>Every item has a story.</strong><p>A template tells you what an item is. An Item Instance tells you what happened to this exact one.</p><div class="data-row"><span>QUALITY</span><b>98%</b></div><div class="data-row"><span>MASTERY</span><b>LVL 42</b></div><div class="data-row"><span>EVOLUTION</span><b>STAGE 03</b></div></div>
+        </div>
+        <div class="feature-heading reveal reveal-delay">
+          <div class="feature-number">03</div>
+          <p class="eyebrow">ITEM INSTANCE EVOLUTION 2.0 / LIVE CORE</p>
+          <h2 id="instances-title">Gear that remembers<br /><em>what it survived.</em></h2>
+          <p class="feature-lede">Unique identity, ownership, rarity, affixes, sockets, XP, mastery, evolution branches, atomic mutations, and a tamper-evident history — all kept on the server.</p>
+          <a class="text-link" href="#instance-details">Open the instance brief <span>→</span></a>
+        </div>
+      </section>
+
+      <section id="instance-details" class="instance-brief section-shell">
+        <div class="section-heading-row reveal"><div><p class="eyebrow">THE ITEM INSTANCE BRIEF</p><h2>Not loot.<br /><em>Lineage.</em></h2></div><p class="heading-note">A readable state.<br />A verifiable history.</p></div>
+        <div class="brief-grid">
+          <article class="brief-card reveal"><span class="card-number">01</span><h3>Identity & ownership</h3><p>Every instance carries a globally unique UUID, binding state, owners, lifecycle state, revision, and a canonical fingerprint.</p><div class="tag-row"><span>UNBOUND</span><span>CHARACTER-BOUND</span><span>TRADE-LOCKED</span></div></article>
+          <article class="brief-card reveal reveal-delay"><span class="card-number">02</span><h3>Evolution & mastery</h3><p>Item XP, item level, mastery, evolution stages, branches, gates, sockets, gems, rarity, quality, and affixes form one explainable progression model.</p><div class="tag-row"><span>XP</span><span>AFFIXES</span><span>SOCKETS</span></div></article>
+          <article class="brief-card reveal reveal-delay-2"><span class="card-number">03</span><h3>Audit & recovery</h3><p>Mutations go through one gateway, bump revisions, stay atomic, and append a hash-chained event. Restore and validation paths are built in.</p><div class="tag-row"><span>SHA-256</span><span>ATOMIC</span><span>RESTORE</span></div></article>
+        </div>
+      </section>
+
+      <section id="systems" class="systems-section section-shell" aria-labelledby="systems-title">
+        <div class="section-heading-row reveal"><div><p class="eyebrow">04 / THE SYSTEMS STACK</p><h2 id="systems-title">Everything around<br /><em>the core loop.</em></h2></div><p class="heading-note">Built to be played.<br />Built to be extended.</p></div>
+        <div class="systems-grid">
+          <article class="system-card system-card-wide reveal"><span class="system-index">A / PROGRESSION</span><h3>Points & Progress</h3><p>A server-authoritative journal for skill, perk, PvM, slayer, wilderness slayer, companion talent, quest, and donator balances — with inactive systems clearly separated.</p><div class="system-meta"><span>JOURNAL PANEL</span><span>13 SOURCES</span><span>::POINTS</span></div></article>
+          <article class="system-card reveal"><span class="system-index">B / PVM</span><h3>Bosses & raids</h3><p>Wilderness boss registrations, solo boss arenas, custom Unforge encounters, Theatre and Chambers frameworks, drops, kill counts, and respawn lifecycle.</p><div class="system-meta"><span>ARENAS</span><span>RAIDS</span></div></article>
+          <article class="system-card reveal reveal-delay"><span class="system-index">C / SKILLING</span><h3>Actions with weight</h3><p>Mining feeds persistent skill points, the skill shop turns them into rewards, and Smithwright perks feed back into PvM mitigation without changing PvP.</p><div class="system-meta"><span>SKILL POINTS</span><span>PERKS</span></div></article>
+          <article class="system-card reveal"><span class="system-index">D / ECONOMY</span><h3>Shops & currencies</h3><p>Coins, PvM points, slayer economies, skill points, perk points, companion talent points, and Unforge shop bindings are audited as separate sources.</p><div class="system-meta"><span>ATOMIC SPEND</span><span>SHOP GATES</span></div></article>
+          <article class="system-card reveal reveal-delay"><span class="system-index">E / PLAYSTYLES</span><h3>Ironman identity</h3><p>Regular, Ironman, Hardcore Ironman, Ultimate Ironman, Hardcore Ultimate, and Group Ironman rules shape trading, banks, drops, group storage, and hardcore demotion.</p><div class="system-meta"><span>GAME MODES</span><span>GROUP STORAGE</span></div></article>
+          <article class="system-card system-card-wide reveal reveal-delay-2"><span class="system-index">F / WORLD</span><h3>Slayer, travel & dangerous ground</h3><p>Slayer dungeon catalogues, direct teleport destinations, wilderness hotspots, NPC drops, teleporter groups, world navigation, and exact spawn tooling connect the world together.</p><div class="system-meta"><span>SLAYER NETWORK</span><span>WILDERNESS</span><span>TELEPORTER</span></div></article>
+          <article class="system-card reveal"><span class="system-index">G / INTERFACES</span><h3>Client-side clarity</h3><p>Bank, combat, equipment, item inspect, journal, skill shop, talent tree, world map, settings, and gameframe work are wired for the actual server state.</p><div class="system-meta"><span>ITEM INSPECT</span><span>JOURNAL</span></div></article>
+          <article class="system-card reveal reveal-delay"><span class="system-index">H / DEV TOOLS</span><h3>Build the world faster</h3><p>Developer Hub lists, the Unforge teleporter, NPC Area Builder, admin commands, content studio, audits, and a local Codex bridge keep iteration visible.</p><div class="system-meta"><span>DEV HUB</span><span>AI BRIDGE</span></div></article>
+        </div>
+      </section>
+
+      <section id="roadmap" class="roadmap-section section-shell" aria-labelledby="roadmap-title">
+        <div class="roadmap-copy reveal"><p class="eyebrow">05 / THE FORGE LOG</p><h2 id="roadmap-title">A world under<br /><em>active construction.</em></h2><p>Unforge is not a static feature list. The architecture is designed to make the next system feel native: authoritative state, readable UI, tests, and an audit trail before the next layer goes live.</p><a class="button button-ghost" href="#enter">Keep watch <span>↗</span></a></div>
+        <div class="timeline reveal reveal-delay">
+          <div class="timeline-item"><span class="timeline-dot active"></span><span class="timeline-label">NOW</span><div><h3>Companions + Item Instances</h3><p>Combat roles, spellbooks, behaviours, evolution, inspect, affixes, lineage, and mutation history form the new core.</p></div></div>
+          <div class="timeline-item"><span class="timeline-dot"></span><span class="timeline-label">NEXT</span><div><h3>More encounter depth</h3><p>Boss-specific mechanics, wider raids, custom world encounters, and deeper reward paths continue to land on the existing framework.</p></div></div>
+          <div class="timeline-item"><span class="timeline-dot"></span><span class="timeline-label">ALWAYS</span><div><h3>Ship the readable version</h3><p>Every new system should be explainable in-game, testable on the server, and visible in the player’s progression.</p></div></div>
+        </div>
+      </section>
+
+      <section id="enter" class="enter-section section-shell" aria-labelledby="enter-title">
+        <div class="enter-panel reveal"><div class="enter-copy"><p class="eyebrow">06 / YOUR TURN</p><h2 id="enter-title">Step into<br /><em>the heat.</em></h2><p>Unforge is being shaped for players who want their build, their companion, and their gear to matter.</p></div><a class="button button-primary button-large" href="mailto:hello@rspsunforge.online">Join the watch <span>↗</span></a><div class="enter-sparks" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div></div>
+      </section>
+    </main>
+
+    <footer class="site-footer section-shell"><a class="brand" href="#top" aria-label="Unforge home"><span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span><span class="brand-name">UNFORGE</span></a><p>Forged for the ones who keep going.</p><p class="footer-meta">© <span id="year"></span> Unforge / All systems in motion</p></footer>
+    <script src="script.js"></script>
+  </body>
+</html>

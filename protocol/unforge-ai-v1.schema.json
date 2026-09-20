@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.invalid/unforge-ai-v1.schema.json",
+  "title": "Unforge AI bridge protocol v1",
+  "type": "object",
+  "required": ["protocol", "version", "type"],
+  "properties": {
+    "protocol": { "const": "unforge.bridge" },
+    "version": { "const": 1 },
+    "type": {
+      "enum": [
+        "connection.hello", "connection.ready", "connection.roster", "ping", "pong", "health", "config",
+        "task.submit", "task.accepted", "task.progress", "task.result", "task.cancel",
+        "task.cancelled", "task.error", "dictation.result", "dictation.error",
+        "player.state", "player.event", "studio.status", "studio.roster"
+      ]
+    },
+    "role": { "enum": ["client", "studio"] },
+    "clientId": { "type": "string", "minLength": 1, "maxLength": 96, "pattern": "^[A-Za-z0-9_.-]+$" },
+    "clients": { "type": "array", "items": { "type": "object" } },
+    "state": { "type": "object" },
+    "event": { "type": "string", "minLength": 1, "maxLength": 64 },
+    "data": { "type": "object" },
+    "taskId": { "type": "string", "minLength": 1, "maxLength": 96, "pattern": "^[A-Za-z0-9_.-]+$" },
+    "requestId": { "type": "string", "minLength": 1, "maxLength": 96, "pattern": "^[A-Za-z0-9_.-]+$" },
+    "text": { "type": "string", "minLength": 1, "maxLength": 8000 },
+    "status": { "type": "string" },
+    "phase": { "type": "string" },
+    "message": { "type": "string" },
+    "errorCode": { "type": "string" },
+    "retryable": { "type": "boolean" },
+    "source": { "type": "string" },
+    "codexConfigured": { "type": "boolean" },
+    "codexModel": { "type": "string" },
+    "transcriptionModel": { "type": "string" },
+    "maxAudioBytes": { "type": "integer", "minimum": 1 },
+    "executor": { "enum": ["codex", "studio"] },
+    "studioConnected": { "type": "boolean" },
+    "playerStateBytes": { "type": "integer", "minimum": 1 }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "type": { "const": "task.submit" } } },
+      "then": { "required": ["taskId", "requestId", "text"] }
+    },
+    {
+      "if": { "properties": { "type": { "enum": ["task.cancel", "task.accepted", "task.progress", "task.result", "task.cancelled"] } } },
+      "then": { "required": ["taskId", "requestId"] }
+    },
+    {
+      "if": { "properties": { "type": { "const": "task.error" } } },
+      "then": { "required": ["errorCode", "message", "retryable"] }
+    },
+    {
+      "if": { "properties": { "type": { "const": "task.progress" } } },
+      "then": { "required": ["taskId", "requestId", "status", "phase", "message"] }
+    },
+    {
+      "if": { "properties": { "type": { "const": "task.result" } } },
+      "then": { "required": ["taskId", "requestId", "status", "text"] }
+    },
+    {
+      "if": { "properties": { "type": { "const": "dictation.result" } } },
+      "then": { "required": ["text"] }
+    },
+    {
+      "if": { "properties": { "type": { "const": "dictation.error" } } },
+      "then": { "required": ["errorCode", "message"] }
+    },
+    {
+      "if": { "properties": { "type": { "const": "player.state" } } },
+      "then": { "required": ["clientId", "state"] }
+    },
+    {
+      "if": { "properties": { "type": { "const": "player.event" } } },
+      "then": { "required": ["clientId", "event"] }
+    },
+    {
+      "if": { "properties": { "type": { "const": "connection.roster" } } },
+      "then": { "required": ["clients"] }
+    }
+  ],
+  "additionalProperties": true
+}

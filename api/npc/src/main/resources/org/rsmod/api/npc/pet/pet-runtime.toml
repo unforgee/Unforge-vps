@@ -1,0 +1,11 @@
+# Modern r239 server pet rules. NPC ids are intentionally explicit and server-owned.
+boss_damage_multiplier = 1.0
+boss_defence_multiplier = 1.0
+boss_hitpoints_multiplier = 1.0
+skilling_pet_xp_multiplier = 1.0
+boss_pet_leash_range = 8
+boss_pet_aoe_radius = 5
+boss_pet_chain_max_targets = 3
+boss_pet_chain_falloff = 0.5
+boss_pet_npc_ids = []
+skilling_pet_npc_ids = []

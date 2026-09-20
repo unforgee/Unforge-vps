@@ -1,0 +1,305 @@
+================================================================================
+UNFORGE 239 - SPRIITTIEN NIMILISTA JA CACHE-OHJEISTUS
+================================================================================
+
+Tämä tiedosto sisältää:
+ 1. Miten löydät ja käytät spriittejä clientin ja koneen cachessa
+ 2. OSRS Prayer Sprite ID -vastaavuudet ja korvaustiedostot
+ 3. Kaikkien eriteltyjen spriittien nimilistat (197 PNG-tiedostoa)
+
+--------------------------------------------------------------------------------
+OSA 1: MITEN LÖYDÄT SPRIITIT CACHESTA JA REPOSTA
+--------------------------------------------------------------------------------
+
+1.1 RUNELITE / UNFORGE CACHE -OVERRIDE -KANSIO (AKTIIVINEN CACHE):
+   Polku: %USERPROFILE%\.runelite\unforge-cache\sprites\
+   Absoluuttinen polku koneellasi:
+   C:\Users\HOST\.runelite\unforge-cache\sprites\
+
+   Miten tämä toimii:
+   - Unforge/RuneLite -clientissä on sisäänrakennettu 'Unforge Cache' -järjestelmä.
+   - Se lukee tiedostot muotoa '<spriteId>_<frame>.png' suoraan tästä kansiosta.
+   - Samassa kansiossa oleva 'manifest.json' kertoo pelille mitkä spriitit korvataan.
+   - Kun käynnistät Unforge 239 -clientin, se ottaa nämä PNG:t käyttöön reaaliajassa!
+
+1.2 UNFORGE CACHE -TYÖKALU PELISSÄ:
+   - Käynnistä peli (.\tools\standalone\Start-Unforge239-Play.bat)
+   - Etsi sivupalkista 'Unforge Cache' -ikoni
+   - Voit klikata '⤢' siirtääksesi ikkunan kelluvaksi ruudulle
+   - Voit hakea spriittiä nimellä tai ID-numerolla (esim. 129 = Protect from Melee)
+   - Näet heti alkuperäisen spriitin ja voit vaihtaa tilalle uuden PNG:n nappia painamalla.
+
+1.3 TÄMÄN PROJEKTIN TYÖKANSIOT (WORK):
+   Kaikki leikatut läpinäkyvät PNG-tiedostot löytyvät kootusti seuraavista kansioista:
+   - Pyöreät Prayer-ikonit:    c:\Users\HOST\Desktop\UNFORGE-239-STANDALONE-LAB\work\prayer-icons\named\
+   - Combat Damage / Splats:  c:\Users\HOST\Desktop\UNFORGE-239-STANDALONE-LAB\work\combat-effects\
+   - Kilpimalliset Prayerit:   c:\Users\HOST\Desktop\UNFORGE-239-STANDALONE-LAB\work\prayer-shields\
+   - Necromancy -embleemit:    c:\Users\HOST\Desktop\UNFORGE-239-STANDALONE-LAB\work\necromancy-icons\
+   - UI-Widgetit ja kehykset:  c:\Users\HOST\Desktop\UNFORGE-239-STANDALONE-LAB\work\ui-widgets\
+
+   Visuaalinen selain-galleria (avaa tuplaklikkaamalla selaimessa):
+   c:\Users\HOST\Desktop\UNFORGE-239-STANDALONE-LAB\work\all_assets_preview.html
+
+--------------------------------------------------------------------------------
+OSA 2: OSRS PRAYER SPRITE ID -KORVAUSTAULUKKO (CACHE-OVERRIDE)
+--------------------------------------------------------------------------------
+
+Nämä tiedostot on valmiiksi kytketty ja tallennettu .runelite\unforge-cache\sprites\:
+SPRITE ID | PUKIN TILA | KORVAAVA TIEDOSTONIMI | OSRS RUKOUS
+----------+------------+-----------------------+---------------------------------
+115_0.png | Aktiivinen | 115_0.png             | Thick Skin
+116_0.png | Aktiivinen | 116_0.png             | Burst of Strength
+117_0.png | Aktiivinen | 117_0.png             | Clarity of Thought
+118_0.png | Aktiivinen | 118_0.png             | Rock Skin
+119_0.png | Aktiivinen | 119_0.png             | Superhuman Strength
+120_0.png | Aktiivinen | 120_0.png             | Improved Reflexes / Attack Boost
+121_0.png | Aktiivinen | 121_0.png             | Rapid Restore
+122_0.png | Aktiivinen | 122_0.png             | Rapid Heal
+123_0.png | Aktiivinen | 123_0.png             | Protect Item
+124_0.png | Aktiivinen | 124_0.png             | Steel Skin
+125_0.png | Aktiivinen | 125_0.png             | Ultimate Strength
+127_0.png | Aktiivinen | 127_0.png             | Protect from Magic
+128_0.png | Aktiivinen | 128_0.png             | Protect from Missiles (Ranged)
+129_0.png | Aktiivinen | 129_0.png             | Protect from Melee
+130_0.png | Aktiivinen | 130_0.png             | Retribution
+131_0.png | Aktiivinen | 131_0.png             | Redemption
+132_0.png | Aktiivinen | 132_0.png             | Smite
+503_0.png | Aktiivinen | 503_0.png             | Rigour
+504_0.png | Aktiivinen | 504_0.png             | Augury
+505_0.png | Aktiivinen | 505_0.png             | Preserve
+944_0.png | Aktiivinen | 944_0.png             | Sharp Eye
+945_0.png | Aktiivinen | 945_0.png             | Mystic Will
+946_0.png | Aktiivinen | 946_0.png             | Hawk Eye
+947_0.png | Aktiivinen | 947_0.png             | Mystic Lore
+1420_0.png| Aktiivinen | 1420_0.png            | Eagle Eye
+1421_0.png| Aktiivinen | 1421_0.png            | Mystic Might
+1422_0.png| Aktiivinen | 1422_0.png            | Chivalry
+1423_0.png| Aktiivinen | 1423_0.png            | Piety
+
+Vastaavat inaktiiviset (pois päältä) OSRS-spriitit ovat:
+Thick Skin: 135, Burst of Strength: 136, Clarity of Thought: 137, Rock Skin: 138,
+Superhuman Strength: 139, Improved Reflexes: 140, Rapid Restore: 141, Rapid Heal: 142,
+Protect Item: 143, Steel Skin: 144, Ultimate Strength: 145, Protect Magic: 147,
+Protect Ranged: 148, Protect Melee: 149, Retribution: 150, Redemption: 151,
+Smite: 152, Sharp Eye: 948, Mystic Will: 949, Hawk Eye: 950, Mystic Lore: 951,
+Eagle Eye: 1424, Mystic Might: 1425, Chivalry: 1426, Piety: 1427, Preserve: 509,
+Rigour: 507, Augury: 508.
+
+--------------------------------------------------------------------------------
+OSA 3: KAIKKI ERITELLYT TIEDOSTOT JA NIMET KATEGORIOITTAIN
+--------------------------------------------------------------------------------
+
+============================================================
+3.1 PYÖREÄT PRAYER & BUFF -IKONIT (54 kpl)
+Kansio: work\prayer-icons\named\
+============================================================
+ - 01_protect_melee.png                | 70x66    | Protect Melee [SpriteID: 129]
+ - 02_protect_ranged.png               | 69x66    | Protect Ranged [SpriteID: 128]
+ - 03_protect_magic_staff.png          | 70x67    | Protect Magic (Staff) [SpriteID: 127]
+ - 04_protect_magic_star.png           | 70x67    | Protect Magic (Star)
+ - 05_divine_shield.png                | 89x75    | Divine Shield
+ - 06_attack_boost.png                 | 71x67    | Attack Boost [SpriteID: 120]
+ - 07_strength_boost.png               | 73x67    | Strength Boost
+ - 08_magic_boost.png                  | 72x68    | Magic Boost
+ - 09_ranged_boost.png                 | 71x67    | Ranged Boost
+ - 10_stamina.png                      | 71x66    | Stamina
+ - 11_regeneration.png                 | 72x67    | Regeneration
+ - 12_luck.png                         | 72x67    | Luck
+ - 13_treasure_finding_clover.png      | 62x60    | Treasure Finding (Clover)
+ - 14_treasure_finding_map.png         | 67x58    | Treasure Finding (Map)
+ - 15_beast_bond.png                   | 72x67    | Beast Bond
+ - 16_ancient_protection.png           | 72x67    | Ancient Protection
+ - 17_soul_protection.png              | 72x70    | Soul Protection
+ - 18_dragon_protection.png            | 71x67    | Dragon Protection
+ - 19_necromancer_blessing.png         | 71x64    | Necromancer Blessing
+ - 20_guardian_spirit.png              | 72x65    | Guardian Spirit
+ - 21_piety_attack_strength.png        | 71x65    | Piety (Cross) [SpriteID: 1423]
+ - 22_chivalry_defense_prayer.png      | 73x66    | Chivalry (Tower) [SpriteID: 1422]
+ - 23_rigour.png                       | 71x65    | Rigour [SpriteID: 503]
+ - 24_augury.png                       | 71x65    | Augury [SpriteID: 504]
+ - 25_preserve.png                     | 73x65    | Preserve [SpriteID: 505]
+ - 26_rapid_heal.png                   | 72x65    | Rapid Heal [SpriteID: 122]
+ - 27_rapid_restore.png                | 70x65    | Rapid Restore [SpriteID: 121]
+ - 28_cleanse.png                      | 72x65    | Cleanse
+ - 29_burst_of_strength.png            | 72x68    | Burst of Strength [SpriteID: 116]
+ - 30_superhuman_strength.png          | 72x64    | Superhuman Strength [SpriteID: 119]
+ - 31_ultimate_strength_fire.png       | 78x68    | Ultimate Strength (Fire) [SpriteID: 125]
+ - 32_clarity_of_thought.png           | 76x68    | Clarity of Thought [SpriteID: 117]
+ - 33_sharp_eye.png                    | 72x64    | Sharp Eye [SpriteID: 944]
+ - 34_hawk_eye.png                     | 72x64    | Hawk Eye [SpriteID: 946]
+ - 35_eagle_eye.png                    | 81x68    | Eagle Eye [SpriteID: 1420]
+ - 36_mystic_will.png                  | 73x64    | Mystic Will [SpriteID: 945]
+ - 37_mystic_lore.png                  | 71x68    | Mystic Lore [SpriteID: 947]
+ - 38_mystic_might.png                 | 72x68    | Mystic Might [SpriteID: 1421]
+ - 39_steel_skin_kite.png              | 72x63    | Steel Skin (Kite) [SpriteID: 124]
+ - 40_rock_skin_hex.png                | 73x71    | Rock Skin (Hex) [SpriteID: 118]
+ - 41_thick_skin_stone.png             | 72x67    | Thick Skin (Stone) [SpriteID: 115]
+ - 42_thick_skin_barrel.png            | 72x65    | Thick Skin (Barrel)
+ - 43_rock_skin_gold.png               | 72x68    | Rock Skin (Gold)
+ - 44_rock_skin_boulder.png            | 72x67    | Rock Skin (Boulder)
+ - 45_steel_skin_spiked.png            | 72x68    | Steel Skin (Spiked)
+ - 46_smite.png                        | 73x67    | Smite [SpriteID: 132]
+ - 47_redemption.png                   | 72x70    | Redemption [SpriteID: 131]
+ - 48_retribution.png                  | 73x69    | Retribution [SpriteID: 130]
+ - 49_wrath.png                        | 72x69    | Wrath
+ - 50_protect_item.png                 | 73x70    | Protect Item [SpriteID: 123]
+ - 51_chivalry_griffin.png             | 72x70    | Chivalry (Griffin)
+ - 52_chivalry_weapons.png             | 72x70    | Chivalry (Weapons)
+ - 53_piety_hammer.png                 | 72x70    | Piety (Hammer)
+ - 54_ultimate_strength_glove.png      | 74x70    | Ultimate Strength (Glove)
+
+============================================================
+3.2 COMBAT DAMAGE & HITSPLAT EFFECTS (56 kpl)
+Kansio: work\combat-effects\
+============================================================
+ - normal_damage_stone_crater_1.png    | 61x60   
+ - normal_damage_stone_crater_2.png    | 62x66   
+ - normal_damage_stone_crater_3.png    | 58x64   
+ - normal_damage_crimson_crater.png    | 61x63   
+ - normal_damage_wood_splinter_1.png   | 59x63   
+ - crit_damage_crimson_burst.png       | 65x65   
+ - crit_damage_gold_crimson_burst.png  | 68x68   
+ - crit_damage_gold_star_burst.png     | 80x66   
+ - crit_damage_fiery_shards.png        | 69x75   
+ - magic_damage_purple_rune_circle.png | 71x66   
+ - magic_damage_blue_rune_circle.png   | 80x67   
+ - magic_damage_gold_star_rune.png     | 69x74   
+ - normal_damage_molten_crater.png     | 75x65   
+ - normal_damage_earth_crater.png      | 67x67   
+ - normal_damage_wood_splinter_2.png   | 61x66   
+ - normal_damage_cracked_ground.png    | 67x68   
+ - normal_damage_abyss_hole.png        | 60x66   
+ - crit_damage_red_spike_ring.png      | 68x68   
+ - crit_damage_gold_spike_ring.png     | 70x69   
+ - crit_damage_fiery_slice_burst.png   | 80x68   
+ - crit_damage_fire_explosion.png      | 65x69   
+ - magic_damage_blue_stellar_circle.png | 70x78   
+ - magic_damage_small_flame.png        | 81x68   
+ - magic_damage_roaring_fire.png       | 70x71   
+ - fire_damage_purple_rune.png         | 71x68   
+ - fire_damage_gold_rune.png           | 79x67   
+ - fire_damage_flame_burst.png         | 84x66   
+ - fire_damage_orange_shards_ring.png  | 76x70   
+ - ice_damage_crystal_cluster.png      | 88x71   
+ - ice_damage_frost_burst.png          | 93x72   
+ - poison_damage_dark_green_drip.png   | 81x75   
+ - poison_damage_bright_green_drip.png | 83x77   
+ - poison_damage_toxic_cloud.png       | 85x72   
+ - bleed_damage_blood_droplets.png     | 54x69   
+ - bleed_damage_claw_slashes.png       | 70x69   
+ - bleed_damage_blood_curtain.png      | 66x71   
+ - shadow_damage_purple_swirl.png      | 79x80   
+ - shadow_damage_smoke_tendril.png     | 94x81   
+ - shadow_damage_dark_smoke_burst.png  | 98x84   
+ - holy_damage_gold_star.png           | 81x84   
+ - holy_damage_holy_star_burst.png     | 84x85   
+ - holy_damage_angelic_halo.png        | 102x70  
+ - healing_green_sprout.png            | 108x79  
+ - healing_glowing_leaves.png          | 108x81  
+ - healing_cyan_heart.png              | 103x80  
+ - healing_golden_heart.png            | 94x81   
+ - absorb_shield_ice_fan.png           | 90x91   
+ - absorb_shield_cyan_rune_shield.png  | 107x89  
+ - absorb_shield_gold_rune_shield.png  | 105x89  
+ - absorb_shield_golden_arcane_disc.png | 94x80   
+ - blocked_damage_iron_barricade.png   | 81x78   
+ - blocked_damage_bronze_shield.png    | 91x76   
+ - blocked_damage_bronze_parry_cuts.png | 86x63   
+ - blocked_damage_blue_parry_cuts.png  | 93x67   
+ - blocked_damage_crossed_shield.png   | 108x77  
+ - immune_shield_banner.png            | 138x74  
+
+============================================================
+3.3 PRAYER SHIELDS - KILPIMALLISET IKONIT (49 kpl)
+Kansio: work\prayer-shields\
+============================================================
+ - 01_protect_melee.png                | 70x70    [SpriteID: 129]
+ - 02_protect_ranged.png               | 70x70    [SpriteID: 128]
+ - 03_protect_magic.png                | 70x70    [SpriteID: 127]
+ - 04_divine_shield.png                | 81x70   
+ - 05_attack_boost.png                 | 70x70    [SpriteID: 120]
+ - 06_attack_boost_gauntlet.png        | 70x70   
+ - 07_strength_boost.png               | 71x70   
+ - 08_magic_boost.png                  | 70x70   
+ - 09_ranged_boost_bow.png             | 70x70   
+ - 10_ranged_boost_arrows.png          | 70x70   
+ - 11_stamina.png                      | 70x72   
+ - 12_regeneration.png                 | 69x72   
+ - 13_luck.png                         | 71x72   
+ - 14_treasure_finding.png             | 69x72   
+ - 15_beast_bond.png                   | 70x72   
+ - 16_ancient_protection.png           | 72x72   
+ - 17_soul_protection.png              | 69x72   
+ - 18_dragon_protection.png            | 70x72   
+ - 19_necromancer_blessing.png         | 70x72   
+ - 20_guardian_spirit.png              | 90x72   
+ - 21_piety_combat.png                 | 69x70    [SpriteID: 1423]
+ - 22_chivalry_combat.png              | 69x70    [SpriteID: 1422]
+ - 23_rigour_ranged.png                | 70x70    [SpriteID: 503]
+ - 24_augury_magic.png                 | 69x70    [SpriteID: 504]
+ - 25_rapid_heal_regen.png             | 70x70    [SpriteID: 122]
+ - 26_rapid_restore_prayer.png         | 70x70    [SpriteID: 121]
+ - 27_cleanse_utility.png              | 69x70   
+ - 28_sharp_eye_ranged.png             | 70x70    [SpriteID: 944]
+ - 29_hawk_eye_ranged.png              | 70x70    [SpriteID: 946]
+ - 30_mystic_will_magic.png            | 70x70    [SpriteID: 945]
+ - 31_mystic_lore_magic.png            | 69x70    [SpriteID: 947]
+ - 32_mystic_might_magic.png           | 69x70    [SpriteID: 1421]
+ - 33_superhuman_strength.png          | 69x70    [SpriteID: 119]
+ - 34_ultimate_strength_attack.png     | 70x70    [SpriteID: 125]
+ - 35_steel_skin_defense.png           | 69x70    [SpriteID: 124]
+ - 36_rock_skin_defense.png            | 68x70    [SpriteID: 118]
+ - 37_thick_skin_defense.png           | 70x70    [SpriteID: 115]
+ - 38_retribution_revenge.png          | 69x70    [SpriteID: 130]
+ - 39_redemption_heal_single.png       | 69x70    [SpriteID: 131]
+ - 40_redemption_heal_double.png       | 69x70   
+ - 41_smite_damage.png                 | 69x69    [SpriteID: 132]
+ - 42_smite_curse.png                  | 68x69   
+ - 43_smite_curse_lightning.png        | 69x69   
+ - 44_wrath_damage.png                 | 69x69   
+ - 45_protect_item_safety.png          | 68x69    [SpriteID: 123]
+ - 46_augury_advanced_magic.png        | 76x69   
+ - 47_piety_advanced_combat.png        | 76x69   
+ - 48_rigour_advanced_ranged.png       | 76x67   
+ - 49_chivalry_ii_advanced_defense.png | 75x69   
+
+============================================================
+3.4 NECROMANCY & SHADOW ABILITY EMBLEMS (14 kpl)
+Kansio: work\necromancy-icons\
+============================================================
+ - 01_grim_reaper.png                  | 158x165 
+ - 02_flaming_skull_torment.png        | 149x165 
+ - 03_dark_crystal_rift.png            | 146x165 
+ - 04_undead_legion_banner.png         | 147x165 
+ - 05_zombie_grave_eye_hand.png        | 145x165 
+ - 06_skeletal_sword_hand.png          | 143x159 
+ - 07_spectral_wraith.png              | 144x159 
+ - 08_void_abyss_skulls.png            | 138x159 
+ - 09_pentagram_ritual_candles.png     | 143x159 
+ - 10_cursed_bleeding_heart.png        | 142x159 
+ - 11_spirit_rune_shield.png           | 144x159 
+ - 12_skeleton_ascension_beam.png      | 138x177 
+ - 13_corpse_explosion_gore.png        | 138x160 
+ - 14_void_cyclone_vortex.png          | 142x158 
+
+============================================================
+3.5 UI MASTER WIDGETS & FRAMES (12 elementtiä, 24 tiedostoa)
+Kansio: work\ui-widgets\
+Sisältää sekä leikatun alkuperäisen (original) että tavoiteresoluution (target)
+============================================================
+ - blank_status_badge_master_original.png | 69x34      -> Target: blank_status_badge_master_24x24.png (24x24)
+ - rarity_frame_item_size_original.png | 73x43      -> Target: rarity_frame_item_size_36x36.png (36x36)
+ - rarity_frame_portrait_size_original.png | 111x100    -> Target: rarity_frame_portrait_size_68x68.png (68x68)
+ - prestige_background_original.png    | 306x195    -> Target: prestige_background_512x334.png (512x334)
+ - prestige_action_button_master_original.png | 162x48     -> Target: prestige_action_button_master_104x30.png (104x30)
+ - mastery_ring_master_original.png    | 91x94      -> Target: mastery_ring_master_64x64.png (64x64)
+ - boss_health_bar_master_original.png | 227x15     -> Target: boss_health_bar_master_512x8.png (512x8)
+ - invasion_warning_panel_original.png | 306x95     -> Target: invasion_warning_panel_512x160.png (512x160)
+ - invasion_wave_hud_strip_original.png | 204x26     -> Target: invasion_wave_hud_strip_512x28.png (512x28)
+ - invasion_boss_portrait_frame_original.png | 95x104     -> Target: invasion_boss_portrait_frame_68x68.png (68x68)
+ - invasion_progress_bar_master_original.png | 229x17     -> Target: invasion_progress_bar_master_512x8.png (512x8)
+ - invasion_top_banner_master_original.png | 284x31     -> Target: invasion_top_banner_master_765x25.png (765x25)
+
+================================================================================
+PÄIVITETTY JA VALMIS KÄYTETTÄVÄKSI UNFORGE / RUNELITE -YMPÄRISTÖSSÄ.
+================================================================================

@@ -1,0 +1,12 @@
+{
+  "launcherVersion": "2.0.0",
+  "clientVersion": "1.12.34-unforge239",
+  "clientUrl": "https://rspsunforge.online/downloads/unforge-client-1.12.34-unforge239.jar",
+  "sha256": "4b1e68f3b6e4a563e539d395810f2bc83e5e32f55d97076a36b05820fb1b0bf9",
+  "releaseDate": "2026-09-20T09:26:29.2637478Z",
+  "releaseNotes": [
+    "Modern launcher with verified client auto-update.",
+    "Current Unforge 239 client package.",
+    "Companions, Item Instances, and progression systems are ready in the live stack."
+  ]
+}
